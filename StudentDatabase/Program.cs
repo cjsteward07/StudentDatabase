@@ -3,26 +3,52 @@ string[] favoriteFoodArray = { "Steak", "Crab", "Pizza", "Tacos" };
 void Menu()
 {
     string[] nameArray = { "Colin", "Zoe", "Ferguson", "Gumby" };
+    string userInput = string.Empty;
     Console.WriteLine("Student Database\n");
-    Console.WriteLine("Select from an option below: ");
-    Console.WriteLine("1.) Student Info");
-    Console.WriteLine("2.) Search by Student Name");
-    Console.WriteLine("3.) List all Students");
-    int menuChoice = int.Parse(Console.ReadLine());
-    switch (menuChoice)
+
+    while (true)
     {
-        case 1:
-            StudentSelector(nameArray);
-            break;
-        case 2:
-            StudentSearch(nameArray);
-            break;
-        case 3:
-            StudentList(nameArray);
-            break;
-        default:
-            Console.WriteLine("default placeholder");
-            break;
+        Console.WriteLine("Select from an option below: ");
+        Console.WriteLine("1.) Student Info");
+        Console.WriteLine("2.) Search by Student Name");
+        Console.WriteLine("3.) List all Students");
+        Console.WriteLine("4.) Quit");
+        userInput = Console.ReadLine();
+        if (int.TryParse(userInput, out int menuChoice))
+        {
+            if (menuChoice >= 1 && menuChoice <= 4)
+            {
+                switch (menuChoice)
+                {
+                    case 1:
+                        StudentSelector(nameArray);
+                        break;
+                    case 2:
+                        StudentSearch(nameArray);
+                        break;
+                    case 3:
+                        StudentList(nameArray);
+                        break;
+                    case 4:
+                        Console.WriteLine("Goodbye");
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Environment.Exit(0);
+                        break;
+                }
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Invalid input. Please enter a valid integer from the menu: \n");
+            }
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Invalid input. Please enter a valid integer from the menu: \n");
+        }
     }
 }
 void StudentSelector(string[] nameArray)
