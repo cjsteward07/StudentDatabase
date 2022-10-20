@@ -33,38 +33,38 @@ void StudentSelector(string[] nameArray)
         int nameArrayLength = nameArray.Length;
         int student;
         int nameCount = 1;
+        string userInput = string.Empty;
         Console.WriteLine($"Please enter a number 1-{nameArrayLength} ");
         foreach (string name in nameArray)
         {
             Console.WriteLine($"{nameCount}.) {name}");
             nameCount++;
         }
-        try
+        userInput = Console.ReadLine();
+        if (int.TryParse(userInput, out student))
         {
-            student = int.Parse(Console.ReadLine());
-            if (student < 1 || student > nameArrayLength)
+            if (student >= 1 && student <= nameArrayLength)
+            {
+                string studentName = nameArray[student - 1];
+                StudentCategories(student, studentName);
+            }
+            else
             {
                 Console.Clear();
                 Console.WriteLine("Invalid input. Please enter a valid integer from the menu: \n");
             }
-            else if (student >= 1 || student <= nameArrayLength)
-            {
-                string studentName = nameArray[student -1];
-                StudentCategories(student, studentName);
-            }
-        }
-        catch
+        }          
+        else
         {
             Console.Clear();
             Console.WriteLine("Invalid input. Please enter a valid integer from the menu: \n");
         }
     }
 }
+
 void StudentCategories(int student, string studentName)
 {
     Console.Clear();
-    // string[] hometownArray = {"Marysville", "Fraser", "Wahiawa", "Waipahu"};
-    // string[] favoriteFoodArray = {"Steak", "Crab", "Pizza", "Tacos"};
     string hometownString = "Hometown";
     string favoriteFoodString = "Favorite Food";
     while (true)
