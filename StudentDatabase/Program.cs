@@ -49,7 +49,8 @@ void StudentSelector(string[] nameArray)
             }
             else if (student >= 1 || student <= nameArrayLength)
             {
-                StudentCategories(student);
+                string studentName = nameArray[student -1];
+                StudentCategories(student, studentName);
             }
         }
         catch
@@ -59,7 +60,7 @@ void StudentSelector(string[] nameArray)
         }
     }
 }
-void StudentCategories(int student)
+void StudentCategories(int student, string studentName)
 {
     Console.Clear();
     // string[] hometownArray = {"Marysville", "Fraser", "Wahiawa", "Waipahu"};
@@ -68,7 +69,7 @@ void StudentCategories(int student)
     string favoriteFoodString = "Favorite Food";
     while (true)
     {
-        Console.WriteLine("Which category would you like to display?");
+        Console.WriteLine($"Which category would you like to display for {studentName}?");
         Console.WriteLine("Hometown");
         Console.WriteLine("Favorite Food");
         string studentCategory = Console.ReadLine().ToLower().Trim();
@@ -76,13 +77,15 @@ void StudentCategories(int student)
         if (studentCategory == "hometown" || hometownString.ToLower().Contains(studentCategory))
         {
             Console.Clear();
-            Console.WriteLine(hometownArray[student - 1]);
+            Console.WriteLine($"Student Name: {studentName}");
+            Console.WriteLine($"Student Hometown: {hometownArray[student - 1]}");
             break;
         }
         else if (studentCategory == "favoritefood" || favoriteFoodString.ToLower().Contains(studentCategory))
         {
             Console.Clear();
-            Console.WriteLine(favoriteFoodArray[student - 1]);
+            Console.WriteLine($"Student Name: {studentName}");
+            Console.WriteLine($"Student Favorite Food: {favoriteFoodArray[student - 1]}");
             break;
         }
         else
@@ -105,13 +108,11 @@ void StudentCategories(int student)
             Console.Clear();
             Console.WriteLine("Goodbye!");
             Environment.Exit(0);
-            break;
         }
         else
         {
             Console.Clear();
             Console.WriteLine("Invalid input");
-            break;
         }
     }
 }
@@ -130,7 +131,7 @@ void StudentSearch(string[] nameArray)
             Console.Clear();
             int studentIndex = Array.IndexOf(nameArray, studentSearch) + 1;
             Console.WriteLine($"Found {studentSearch}!\n");
-            StudentCategories(studentIndex);
+            StudentCategories(studentIndex, studentSearch);
         }
         else if (!(nameArray.Contains(studentSearch)))
         {
@@ -142,13 +143,13 @@ void StudentSearch(string[] nameArray)
 void StudentList(string[] nameArray)
 {
     Console.Clear();
+    Console.WriteLine("Here's the list of students: ");
+    foreach (string name in nameArray)
+    {
+        Console.WriteLine(name);
+    }
     while (true)
     {
-        Console.WriteLine("Here's the list of students: ");
-        foreach (string name in nameArray)
-        {
-            Console.WriteLine(name);
-        }
         Console.Write("\nWould you like to run again [y]/[n]?: ");
         string userChoice = Console.ReadLine().ToLower().Trim();
         if (userChoice == "y")
@@ -161,13 +162,11 @@ void StudentList(string[] nameArray)
             Console.Clear();
             Console.WriteLine("Goodbye!");
             Environment.Exit(0);
-            break;
         }
         else
         {
             Console.Clear();
             Console.WriteLine("Invalid input");
-            break;
         }
     }
 }
